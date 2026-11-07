@@ -1,6 +1,6 @@
 # LogAegis V3-aligned Dashboard — Standalone Update Package
 
-Prepared against **LogAegis v3 – Formatting Backup (Oct 30, 2026)**, read from the connected Google Drive. The package is a **replacement implementation**, not a tested merge of the existing private GitHub repository (repository access was blocked with an account-suspended 403 error on October 30). No GitHub push or Vercel deployment was possible during the previous session.
+Prepared against **LogAegis v3 – Formatting Backup (Oct 30, 2026)**, read from the connected Google Drive. The package is a **replacement implementation**, not a tested merge of the existing private GitHub repository (repository access was blocked with an account-suspended 403 error on October 30). No GitHub push or Vercel deployment was possible during this session.
 
 ## Included views
 
