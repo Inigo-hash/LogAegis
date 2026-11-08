@@ -47,3 +47,4 @@ export function createFlaggedPreviewScan(time = '10:20 AM') {
     notification: 'Administrator notification sent'
   };
 }
+

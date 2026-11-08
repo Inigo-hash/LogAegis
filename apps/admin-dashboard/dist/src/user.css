@@ -34,3 +34,4 @@
 .user-shell .top-right{gap:12px}
 @media(max-width:950px){.user-shell .topbar{gap:12px}.user-shell .top-right{gap:8px}.user-shell .user-role-pill{display:none}}
 @media(max-width:600px){.user-shell .page-header{align-items:flex-start;flex-direction:column}.user-shell .header-actions{width:100%}.user-shell .header-actions .btn{width:100%}.user-shell .admin-switch{font-size:10px;padding:9px 10px}.user-shell .scan-progress-copy{align-items:flex-start;flex-direction:column;gap:4px}}
+

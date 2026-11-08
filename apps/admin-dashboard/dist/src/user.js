@@ -2,7 +2,7 @@ import {
   initialUserScans,
   previewScanningScan,
   countUserScans,
-  createFlaggedPreviewScan
+  createFlaggedPreviewScan,
 } from './user-data.js';
 
 const root = document.getElementById('app');
@@ -123,6 +123,7 @@ function homePage() {
     '<p><b>No rule triggered</b> means no configured detection rule matched. It does not guarantee that a file is safe. ' +
     '<b>Flagged for review</b> means do not open the file until an administrator has reviewed it.</p></div>';
 }
+
 
 function historyPage() {
   let rows = state.scans.slice();
