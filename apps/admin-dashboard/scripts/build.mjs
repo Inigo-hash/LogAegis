@@ -6,6 +6,7 @@ const out=path.join(root,'dist');
 await rm(out,{recursive:true,force:true});
 await mkdir(out,{recursive:true});
 await cp(path.join(root,'index.html'),path.join(out,'index.html'));
+await cp(path.join(root,'user.html'),path.join(out,'user.html'));
 await cp(path.join(root,'src'),path.join(out,'src'),{recursive:true});
 const html=await readFile(path.join(out,'index.html'),'utf8');
 if(!html.includes('src/main.js'))throw new Error('Missing dashboard entrypoint');
