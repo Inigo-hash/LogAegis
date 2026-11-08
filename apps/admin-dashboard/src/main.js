@@ -2,7 +2,7 @@ import {createApi, ApiError, normalizeBase} from './api.js';
 import {demo, riskForEvent, scanRisk, csv, totals} from './data.js';
 import {createPreviewScanRecord, createPreviewScanEvent, validateExecutableFilename} from './scanner.js';
 
-const NAV=[['file-scanner','⛨','File Scanner'],['overview','▦','Overview'],['devices','▣','Devices'],['activity','≡','Activity Logs'],['ai','✧','AI Analysis'],['integrity','◇','Record Integrity'],['reports','▤','Reports'],['settings','⚙','Settings']];
+const NAV=[['overview','▦','Overview'],['file-scanner','⛨','File Scanner'],['devices','▣','Devices'],['activity','≡','Activity Logs'],['ai','✧','AI Analysis'],['integrity','◇','Record Integrity'],['reports','▤','Reports'],['settings','⚙','Settings']];
 const pageDescriptions={'file-scanner':'Initiate an administrator-only preview scan of a supported Windows executable',overview:'Security posture across monitored laboratory endpoints',devices:'Enrolled Windows computers and their monitoring status',activity:'Chronological, searchable endpoint evidence',ai:'Explainable classification results and research model status',integrity:'Authenticated record chain and trusted checkpoint status',reports:'Exportable evidence and research reporting',settings:'Connection, security and deployment configuration'};
 const root=document.getElementById('app');
 const state={page:'overview',mode:'live',base:globalThis.LOGAEGIS_API_BASE||'',token:null,identity:null,data:null,loading:false,error:'',query:'',risk:'all',verifications:{},selected:null,refreshAt:null,menu:false,theme:'light',previewScans:[],previewEvents:[],scannerFileName:'',scannerError:'',scannerScenario:'Suspicious'};

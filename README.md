@@ -4,8 +4,8 @@ A lightweight, dependency-free dashboard prototype for LogAegis. The application
 
 ## Included views
 
-1. File Scanner: administrator-only mock .exe scan workflow for preview mode.
-2. Overview: events, enrolled devices, scan findings, integrity results, charts.
+1. Overview: events, enrolled devices, scan findings, integrity results, charts.
+2. File Scanner: administrator-only mock .exe scan workflow for preview mode.
 3. Devices: enrolled endpoints, inspection, administrator device-token revocation.
 4. Activity Logs: chronological events, searches, risk filters, record inspection.
 5. AI Analysis: explicit model-unverified status and only real risk metadata; no fabricated metrics.
@@ -27,7 +27,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173` for the admin console or `http://127.0.0.1:5173/user.html` for the end-user preview. File Scanner is the first item in the administrator sidebar. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
+Open `http://127.0.0.1:5173` for the admin console or `http://127.0.0.1:5173/user.html` for the end-user preview. Overview is the first item in the administrator sidebar, followed by File Scanner. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
 
 ## Live backend connection
 
@@ -62,7 +62,7 @@ The live UI never assumes a device is online without a heartbeat endpoint; it do
 
 ## Administrator File Scanner preview
 
-The **File Scanner** page is the first item in the administrator sidebar and combines the scan workflow with the complete executable scan history. Administrators can initiate a scan at the top, then search, filter, inspect or export scan records further down the same page.
+The **File Scanner** page is the second item in the administrator sidebar and combines the scan workflow with the complete executable scan history. Administrators can initiate a scan at the top, then search, filter, inspect or export scan records further down the same page.
 
 - In Demo Mode, choose a Windows .exe file and select an illustrative result scenario.
 
