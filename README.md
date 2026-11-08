@@ -10,9 +10,9 @@ A lightweight, dependency-free dashboard prototype for LogAegis. The application
 4. Activity Logs: chronological events, searches, risk filters, record inspection.
 5. AI Analysis: explicit model-unverified status and only real risk metadata; no fabricated metrics.
 6. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
-8. Reports: safe CSV exports and honest pending research metrics.
-9. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
-10. End-user preview: Home and Scan History screens for standard users.
+7. Reports: safe CSV exports and honest pending research metrics.
+8. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
+9. End-user preview: Home and Scan History screens for standard users.
 
 The UI ships with a clearly labeled **fictional interactive prototype dataset**, matching the V3 description's 6 example devices, 6,399 illustrative events, scan findings, and integrity screen. Prototype mode is strictly separate from live mode.
 
