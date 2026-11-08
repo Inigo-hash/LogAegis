@@ -1,6 +1,6 @@
-# LogAegis V3-aligned Dashboard — Standalone Update Package
+# LogAegis Dashboard
 
-Prepared against **LogAegis v3 – Formatting Backup (Oct 30, 2026)**, read from the connected Google Drive. The package is a **replacement implementation**, not a tested merge of the existing private GitHub repository (repository access was blocked with an account-suspended 403 error on October 30). No GitHub push or Vercel deployment was possible during this session.
+A lightweight, dependency-free dashboard prototype for LogAegis. The application includes an administrator console and a restricted end-user preview that share the same visual system. The end-user preview provides the Home and Scan History screens based on the paper prototype.
 
 ## Included views
 
@@ -12,6 +12,7 @@ Prepared against **LogAegis v3 – Formatting Backup (Oct 30, 2026)**, read from
 6. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
 7. Reports: safe CSV exports and honest pending research metrics.
 8. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
+9. End-user preview: simplified Home and Scan History screens for standard users.
 
 The UI ships with a clearly labeled **fictional interactive prototype dataset**, matching the V3 description's 6 example devices, 6,399 illustrative events, scan findings, and integrity screen. Prototype mode is strictly separate from live mode.
 
@@ -26,7 +27,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173`. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
+Open `http://127.0.0.1:5173` for the admin console or `http://127.0.0.1:5173/user.html` for the end-user preview. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
 
 ## Live backend connection
 
@@ -59,9 +60,11 @@ The live UI never assumes a device is online without a heartbeat endpoint; it do
 - No claim is made that the Windows collector, AI classifier, alert transport, persistent checkpoint worker, or actual lab devices are operating. This dashboard displays only the backend data they supply.
 - A real backend/browser integration test, production TLS and CORS configuration, CI of the actual repository, and authorized Vercel deployment still need to be performed.
 
-## How to apply to existing repository
+## End-user preview
 
-Because GitHub access was denied, this bundle has not been compared against the repository's current dashboard code. It is a **complete standalone replacement for `apps/admin-dashboard`**, not an automatic patch. Back up and compare the existing folder before overwriting it. When GitHub access is restored, validate the integration against the actual repo and then push directly to `main`, as requested.
+The `user.html` page intentionally exposes only **Home** and **Scan History**. It uses sample records matching the paper prototype (`setup.exe` and `utility.exe`) and includes a small preview workflow for showing a scan in progress and a flagged result. The admin console links to this page with an **End-user view** shortcut.
+
+This is a front-end demonstration, not a security boundary or a live endpoint client. The preview does not monitor the Downloads folder, access local files, execute files, or call an end-user API. The repository currently documents administrator API routes only. Real end-user authentication, role enforcement, scan-history retrieval, and automatic file monitoring must be implemented by the backend and Windows endpoint agent before this view is used with real laboratory data.
 
 ## Validation
 
