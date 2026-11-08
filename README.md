@@ -4,15 +4,16 @@ A lightweight, dependency-free dashboard prototype for LogAegis. The application
 
 ## Included views
 
-1. Overview: events, enrolled devices, scan findings, integrity results, charts.
-2. Devices: enrolled endpoints, inspection, administrator device-token revocation.
-3. Activity Logs: chronological events, searches, risk filters, record inspection.
-4. AI Analysis: explicit model-unverified status and only real risk metadata; no fabricated metrics.
-5. Executable Scans: search, indicators, SHA-256 and review classifications.
-6. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
-7. Reports: safe CSV exports and honest pending research metrics.
-8. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
-9. End-user preview: Home, File Scanner and Scan History screens for standard users.
+1. File Scanner: administrator-only mock .exe scan workflow for preview mode.
+2. Overview: events, enrolled devices, scan findings, integrity results, charts.
+3. Devices: enrolled endpoints, inspection, administrator device-token revocation.
+4. Activity Logs: chronological events, searches, risk filters, record inspection.
+5. AI Analysis: explicit model-unverified status and only real risk metadata; no fabricated metrics.
+6. Executable Scans: search, indicators, SHA-256 and review classifications.
+7. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
+8. Reports: safe CSV exports and honest pending research metrics.
+9. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
+10. End-user preview: Home and Scan History screens for standard users.
 
 The UI ships with a clearly labeled **fictional interactive prototype dataset**, matching the V3 description's 6 example devices, 6,399 illustrative events, scan findings, and integrity screen. Prototype mode is strictly separate from live mode.
 
@@ -27,7 +28,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173` for the admin console, `http://127.0.0.1:5173/user.html` for the end-user preview, or `http://127.0.0.1:5173/user.html#scanner` to open File Scanner directly. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
+Open `http://127.0.0.1:5173` for the admin console or `http://127.0.0.1:5173/user.html` for the end-user preview. File Scanner is the first item in the administrator sidebar. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
 
 ## Live backend connection
 
@@ -60,11 +61,27 @@ The live UI never assumes a device is online without a heartbeat endpoint; it do
 - No claim is made that the Windows collector, AI classifier, alert transport, persistent checkpoint worker, or actual lab devices are operating. This dashboard displays only the backend data they supply.
 - A real backend/browser integration test, production TLS and CORS configuration, CI of the actual repository, and authorized Vercel deployment still need to be performed.
 
+## Administrator File Scanner preview
+
+The **File Scanner** page is the first item in the administrator sidebar. It provides a mock scan workflow for demonstrating the proposed static executable analysis.
+
+- In Demo Mode, choose a Windows .exe file and select an illustrative result scenario.
+
+- Click **Scan file** to create a preview scan record and its corresponding endpoint activity event.
+
+- The generated record appears in the dashboard's Overview, Activity Logs, Executable Scans table, scan-detail dialog and CSV exports.
+
+- Preview records are stored only in the current browser session and are not submitted to the live backend.
+
+The file chooser reads only the filename. File contents are not read, uploaded, executed or analyzed. The two preview scenarios are illustrative and are not actual malware assessments. Live mode keeps the mock scan action disabled because the repository does not yet expose an endpoint scanner or a scan-initiation API. Real scanning requires the Windows endpoint component, PE feature extraction, the configured LightGBM model and researcher-defined indicators, plus backend persistence.
+
+The scanner is detection-and-notification only. It does not execute, block, quarantine or delete files, and it does not provide real-time protection.
+
 ## End-user preview
 
-The `user.html` page exposes **Home**, **File Scanner** and **Scan History**. It uses sample records matching the paper prototype (`setup.exe` and `utility.exe`) and includes a preview workflow for showing a scan in progress and a flagged result. The File Scanner page presents the designated Downloads location, supported Windows `.exe` files, static PE analysis method, proposed LightGBM classifier, researcher-defined indicators and the planned assessment output fields. The admin console includes an **End-user view** shortcut and an admin-console-only **File Scanner Preview** shortcut.
+The user.html page intentionally exposes only **Home** and **Scan History**, matching the end-user paper prototype. It uses sample records (setup.exe and utility.exe) and includes a preview workflow for showing a scan in progress and a flagged result. The end-user interface does not expose administrator scanning controls, centralized activity logs or record-integrity management.
 
-This is a front-end demonstration, not a security boundary or a live endpoint client. The preview does not monitor the Downloads folder, access local files, execute files, or call an end-user API. Scanner model scores, rule scores, final risk levels, triggered indicators and model version remain unavailable until the corresponding analysis components provide actual values. The repository currently documents administrator API routes only. Real end-user authentication, role enforcement, scan-history retrieval, and automatic file monitoring must be implemented by the backend and Windows endpoint agent before this view is used with real laboratory data. The File Scanner page describes detection and notification only; automatic blocking, quarantine and file removal are outside the proposed study scope.
+This is a front-end demonstration, not a live endpoint client. The end-user preview does not monitor the Downloads folder, access local files, execute files or call an end-user API. Real end-user authentication, role enforcement, scan-history retrieval and automatic file monitoring remain backend and endpoint-agent work.
 
 ## Validation
 

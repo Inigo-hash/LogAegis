@@ -3,26 +3,19 @@ import {
   previewScanningScan,
   countUserScans,
   createFlaggedPreviewScan,
-  scannerSpecification,
-  plannedAssessmentFields,
-  summarizeScannerResults
 } from './user-data.js';
 
 const root = document.getElementById('app');
 const NAV = [
   ['home', '⌂', 'Home'],
-  ['scanner', '⛨', 'File Scanner'],
   ['history', '▤', 'Scan History']
 ];
 const descriptions = {
   home: 'View the scan status and recent checks for this computer.',
-  scanner: 'Review the executable-file scanning method and assessment information.',
   history: 'Review the results of completed executable scans.'
 };
-const requestedPage = window.location.hash.slice(1);
-const initialPage = ['scanner', 'history'].includes(requestedPage) ? requestedPage : 'home';
 const state = {
-  page: initialPage,
+  page: 'home',
   query: '',
   result: 'all',
   scans: initialUserScans.map(scan => ({ ...scan })),
@@ -132,68 +125,6 @@ function homePage() {
 }
 
 
-function scannerPage() {
-  const counts = summarizeScannerResults(state.scans);
-  const latest = state.scans[0] || null;
-  const outputs = plannedAssessmentFields.map(field =>
-    '<div><span>' + h(field) + '</span><strong>Not available in preview</strong></div>'
-  ).join('');
-
-  const configuration = [
-    ['Monitoring status', scannerSpecification.monitoringStatus],
-    ['Monitored location', scannerSpecification.monitoredLocation],
-    ['Supported file type', scannerSpecification.supportedFileType],
-    ['Analysis method', scannerSpecification.analysisMethod],
-    ['File execution', scannerSpecification.execution]
-  ];
-  const methods = [
-    ['PE feature extraction', 'Extracts supported Portable Executable characteristics for static analysis.'],
-    ['LightGBM classifier', 'The proposed classifier is not connected to this preview.'],
-    ['Researcher-defined indicators', 'Configured static indicators are intended to supplement the classifier.']
-  ];
-
-  const latestContent = latest
-    ? '<div class="scanner-latest-file">' +
-        '<div class="scanner-file-icon">EXE</div>' +
-        '<div class="scanner-latest-meta"><strong>' + h(latest.filename) + '</strong><span>' + h(latest.time) + ' · ' + h(latest.method) + '</span></div>' +
-        badge(latest.result) +
-        '<button class="row-btn" data-action="view-result" data-id="' + h(latest.id) + '">View result</button>' +
-      '</div><p class="scanner-reason"><strong>Detection explanation:</strong> ' + h(latest.reason) + '</p>'
-    : '<div class="empty"><strong>No sample assessments</strong><p>Scan results will appear here when available.</p></div>';
-
-  return pageHeader(
-    'File Scanner',
-    'Review the proposed static analysis of supported Windows executable files.',
-    '<button class="btn secondary" data-page="history">View scan history</button>'
-  ) +
-  '<div class="metric-grid three">' +
-    metric('Sample scans', String(counts.total), '▣', 'Completed records in preview data') +
-    metric('Flagged for review', String(counts.flagged), '⚑', 'Illustrative records requiring review') +
-    metric('No rule triggered', String(counts.noRuleTriggered), '✓', 'Illustrative records with no matched rule') +
-  '</div>' +
-  '<div class="cols-2 bigger-left">' +
-    section('Monitoring Configuration', 'Intended endpoint monitoring settings', 
-      '<div class="scanner-config-grid">' + configuration.map(([label,value]) =>
-        '<div class="scanner-config-item"><span>' + h(label) + '</span><strong>' + h(value) + '</strong></div>'
-      ).join('') + '</div>' +
-      '<div class="scanner-config-note">This is a UI preview. No Downloads folder is currently being monitored by this page.</div>'
-    ) +
-    section('Static Analysis Process', 'Files are assessed without being executed',
-      '<div class="scanner-method-list">' + methods.map(([title,description],index) =>
-        '<div class="scanner-method-item"><span class="scanner-method-number">' + (index + 1) + '</span><div><strong>' + h(title) + '</strong><p>' + h(description) + '</p></div></div>'
-      ).join('') + '</div>' +
-      '<div class="scanner-classifier-status"><span>Classifier connection</span>' + badge('Not connected') + '</div>'
-    ) +
-  '</div>' +
-  section('Latest File Assessment', 'Most recent illustrative scan record', latestContent) +
-  section('Assessment Information', 'Output fields planned for completed static analysis',
-    '<div class="settings-status scanner-output-list">' + outputs + '</div>' +
-    '<p class="fineprint">Model scores, rule scores, risk levels, triggered indicators and model version will only be displayed when the corresponding analysis components provide actual values.</p>'
-  ) +
-  '<div class="info-panel user-safety-note"><strong>Detection and notification only</strong>' +
-    '<p>A flagged result indicates that the configured analysis identified conditions requiring review; it is not by itself proof that a file is malware. A result stating that no rule was triggered does not guarantee that a file is safe. LogAegis examines supported files without executing them and does not block, quarantine or remove files.</p></div>';
-}
-
 function historyPage() {
   let rows = state.scans.slice();
   const query = state.query.trim().toLowerCase();
@@ -250,7 +181,6 @@ function modal() {
 }
 
 function pageContent() {
-  if (state.page === 'scanner') return scannerPage();
   return state.page === 'history' ? historyPage() : homePage();
 }
 
@@ -321,7 +251,6 @@ root.addEventListener('click', event => {
   const page = event.target.closest('[data-page]');
   if (page) {
     state.page = page.dataset.page;
-    window.history.replaceState(null, '', state.page === 'home' ? window.location.pathname : '#' + state.page);
     state.query = '';
     state.result = 'all';
     state.selected = null;

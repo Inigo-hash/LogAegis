@@ -48,29 +48,3 @@ export function createFlaggedPreviewScan(time = '10:20 AM') {
   };
 }
 
-
-export const scannerSpecification = Object.freeze({
-  monitoringStatus: 'Preview only — endpoint monitoring is not connected',
-  monitoredLocation: 'Designated Downloads folder',
-  supportedFileType: 'Windows .exe (Portable Executable)',
-  analysisMethod: 'Static PE feature analysis',
-  classifier: 'LightGBM classifier (not connected)',
-  indicators: 'Researcher-defined static indicators (preview only)',
-  execution: 'Files are examined without being executed'
-});
-
-export const plannedAssessmentFields = Object.freeze([
-  'Model score',
-  'Rule score',
-  'Final risk level',
-  'Triggered indicators',
-  'Model version'
-]);
-
-export function summarizeScannerResults(scans) {
-  return {
-    total: scans.filter(scan => scan.status === 'Completed').length,
-    flagged: scans.filter(scan => scan.result === 'Flagged for review' || scan.result === 'Suspicious').length,
-    noRuleTriggered: scans.filter(scan => scan.result === 'No rule triggered' || scan.result === 'No rules triggered').length
-  };
-}
