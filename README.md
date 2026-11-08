@@ -9,11 +9,10 @@ A lightweight, dependency-free dashboard prototype for LogAegis. The application
 3. Devices: enrolled endpoints, inspection, administrator device-token revocation.
 4. Activity Logs: chronological events, searches, risk filters, record inspection.
 5. AI Analysis: explicit model-unverified status and only real risk metadata; no fabricated metrics.
-6. Executable Scans: search, indicators, SHA-256 and review classifications.
-7. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
-8. Reports: safe CSV exports and honest pending research metrics.
-9. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
-10. End-user preview: Home and Scan History screens for standard users.
+6. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
+7. Reports: safe CSV exports and honest pending research metrics.
+8. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
+9. End-user preview: Home and Scan History screens for standard users.
 
 The UI ships with a clearly labeled **fictional interactive prototype dataset**, matching the V3 description's 6 example devices, 6,399 illustrative events, scan findings, and integrity screen. Prototype mode is strictly separate from live mode.
 
@@ -63,19 +62,23 @@ The live UI never assumes a device is online without a heartbeat endpoint; it do
 
 ## Administrator File Scanner preview
 
-The **File Scanner** page is the first item in the administrator sidebar. It provides a mock scan workflow for demonstrating the proposed static executable analysis.
+The **File Scanner** page is the first item in the administrator sidebar and combines the scan workflow with the complete executable scan history. Administrators can initiate a scan at the top, then search, filter, inspect or export scan records further down the same page.
 
 - In Demo Mode, choose a Windows .exe file and select an illustrative result scenario.
 
 - Click **Scan file** to create a preview scan record and its corresponding endpoint activity event.
 
-- The generated record appears in the dashboard's Overview, Activity Logs, Executable Scans table, scan-detail dialog and CSV exports.
+- The generated record appears in File Scanner's Scan History, Overview and Activity Logs, scan-detail dialog and CSV exports.
 
 - Preview records are stored only in the current browser session and are not submitted to the live backend.
 
 The file chooser reads only the filename. File contents are not read, uploaded, executed or analyzed. The two preview scenarios are illustrative and are not actual malware assessments. Live mode keeps the mock scan action disabled because the repository does not yet expose an endpoint scanner or a scan-initiation API. Real scanning requires the Windows endpoint component, PE feature extraction, the configured LightGBM model and researcher-defined indicators, plus backend persistence.
 
 The scanner is detection-and-notification only. It does not execute, block, quarantine or delete files, and it does not provide real-time protection.
+
+## Administrator navigation
+
+Executable scan history is integrated into File Scanner rather than exposed as a separate sidebar destination. The File Scanner contains the scan controls, latest result, full scan history, search, risk filtering, detail dialogs and CSV export.
 
 ## End-user preview
 
