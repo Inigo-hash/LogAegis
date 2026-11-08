@@ -12,7 +12,7 @@ A lightweight, dependency-free dashboard prototype for LogAegis. The application
 6. Record Integrity: independently checked, per-device HMAC/checkpoint verification and anchor lag.
 7. Reports: safe CSV exports and honest pending research metrics.
 8. Settings: HTTPS backend URL, authenticated session, audit trail and theme.
-9. End-user preview: simplified Home and Scan History screens for standard users.
+9. End-user preview: Home, File Scanner and Scan History screens for standard users.
 
 The UI ships with a clearly labeled **fictional interactive prototype dataset**, matching the V3 description's 6 example devices, 6,399 illustrative events, scan findings, and integrity screen. Prototype mode is strictly separate from live mode.
 
@@ -27,7 +27,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173` for the admin console or `http://127.0.0.1:5173/user.html` for the end-user preview. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
+Open `http://127.0.0.1:5173` for the admin console, `http://127.0.0.1:5173/user.html` for the end-user preview, or `http://127.0.0.1:5173/user.html#scanner` to open File Scanner directly. The static build is written to `apps/admin-dashboard/dist/`. On Vercel use project root `apps/admin-dashboard`, build command `npm run build`, output directory `dist`. A custom host should serve `dist/index.html` and `dist/src/*` intact.
 
 ## Live backend connection
 
@@ -62,9 +62,9 @@ The live UI never assumes a device is online without a heartbeat endpoint; it do
 
 ## End-user preview
 
-The `user.html` page intentionally exposes only **Home** and **Scan History**. It uses sample records matching the paper prototype (`setup.exe` and `utility.exe`) and includes a small preview workflow for showing a scan in progress and a flagged result. The admin console links to this page with an **End-user view** shortcut.
+The `user.html` page exposes **Home**, **File Scanner** and **Scan History**. It uses sample records matching the paper prototype (`setup.exe` and `utility.exe`) and includes a preview workflow for showing a scan in progress and a flagged result. The File Scanner page presents the designated Downloads location, supported Windows `.exe` files, static PE analysis method, proposed LightGBM classifier, researcher-defined indicators and the planned assessment output fields. The admin console includes an **End-user view** shortcut and an admin-console-only **File Scanner Preview** shortcut.
 
-This is a front-end demonstration, not a security boundary or a live endpoint client. The preview does not monitor the Downloads folder, access local files, execute files, or call an end-user API. The repository currently documents administrator API routes only. Real end-user authentication, role enforcement, scan-history retrieval, and automatic file monitoring must be implemented by the backend and Windows endpoint agent before this view is used with real laboratory data.
+This is a front-end demonstration, not a security boundary or a live endpoint client. The preview does not monitor the Downloads folder, access local files, execute files, or call an end-user API. Scanner model scores, rule scores, final risk levels, triggered indicators and model version remain unavailable until the corresponding analysis components provide actual values. The repository currently documents administrator API routes only. Real end-user authentication, role enforcement, scan-history retrieval, and automatic file monitoring must be implemented by the backend and Windows endpoint agent before this view is used with real laboratory data. The File Scanner page describes detection and notification only; automatic blocking, quarantine and file removal are outside the proposed study scope.
 
 ## Validation
 
